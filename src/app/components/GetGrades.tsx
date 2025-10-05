@@ -8,7 +8,15 @@ export default function GetGrades() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`You submitted: ${inputText}\nCanvas Token: ${canvasToken}`);
+
+    // Validate grade input
+    const validGrades = ["A", "B", "C", "D", "F"];
+    if (!validGrades.includes(inputText.toUpperCase())) {
+      alert("Invalid grade! Please enter only A, B, C, D, or F.");
+      return;
+    }
+
+    alert(`You submitted: ${inputText.toUpperCase()}\nCanvas Token: ${canvasToken}`);
   };
 
   return (
@@ -23,7 +31,7 @@ export default function GetGrades() {
           type="text"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          placeholder="Letter Grade you want to achieve"
+          placeholder="Letter Grade you want to achieve (A-F)"
           className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
@@ -43,8 +51,6 @@ export default function GetGrades() {
           Submit
         </button>
       </form>
-
-    
     </section>
   );
 }

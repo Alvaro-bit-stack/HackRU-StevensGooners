@@ -26,7 +26,7 @@ export default function CreatorContacts() {
       name: "Bradley Griffel",
       role: "Backend",
       email: "bgriffel@stevens.edu",
-      img: "/Bradley.jpg",
+      img: "/Badboy.jpeg",
     },
   ];
 
