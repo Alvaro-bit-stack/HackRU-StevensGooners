@@ -4,7 +4,7 @@ import GetGrades from "@/app/components/GetGrades";
 import CanvasAIAssistant from "@/app/components/CanvasAIAssistant";
 import CourseIdHelper from "@/app/components/CourseIdHelper";
 import SetupInstructions from "@/app/components/SetupInstructions";
-
+import CreatorsContacts from "@/app/components/CreatorsContacts";
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <GetGrades />
-      <CreatorContacts />
+      <CreatorsContacts />
     </div>    
   );
 }
