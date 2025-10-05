@@ -1,7 +1,21 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from dummy_client import fetch_course_info
+import uvicorn
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "*",  # relax for local dev; tighten as needed
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],  # includes OPTIONS for preflight
+    allow_headers=["*"],
+)
 
 @app.get("/needed_uniform")
 def needed_uniform(
@@ -9,6 +23,8 @@ def needed_uniform(
     target: int = Query(..., le=100, ge=0, description="Desired final grade in %")
 ):
     course = fetch_course_info(course_id)
+    if not course:
+        raise HTTPException(status_code=404, detail=f"Course {course_id} not found in dummy data")
 
     result = needed_uniform_average(course, target)
 
@@ -102,3 +118,6 @@ def needed_uniform_average(course, target):
         "projected_final_category_scores": final_scores,
         "projected_final_grade": projected_final
     }    
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
