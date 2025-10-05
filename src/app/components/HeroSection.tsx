@@ -20,7 +20,7 @@ export default function HeroSection() {
       {/* ==== Right: Text ==== */}
       <div className="flex-1 flex flex-col justify-between md:pl-20 py-10">
         <h1 className="text-4xl font-bold text-gray-800 text-center md:text-left mb-8">
-          Class Student Canvas Assistant
+          Canvas-Based Study Assistant
         </h1>
         
         <div className="text-gray-700 text-2xl w-full flex-1">

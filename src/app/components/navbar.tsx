@@ -3,7 +3,7 @@ export default function Navbar() {
     <nav className="bg-gray-800 text-white sticky top-0 z-50 shadow-lg">
       <div className="w-full px-6 py-6 flex items-center justify-between">
         <a href="/" className="text-3xl font-bold hover:text-gray-300 transition-colors">
-          BAMM Canvas 
+          BAMM Canvas Assistant
         </a>
         <div className="flex space-x-8 text-lg font-bold">
           <a href="/" className="hover:text-gray-300 transition-colors duration-200">Home</a>
