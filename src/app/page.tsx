@@ -12,6 +12,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <GetGrades />
+      <CreatorContacts />
     </div>    
   );
 }
