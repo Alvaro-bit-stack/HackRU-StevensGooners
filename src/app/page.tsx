@@ -1,5 +1,6 @@
 import Navbar from "@/app/components/navbar";
 import HeroSection from "@/app/components/HeroSection";
+import GetGrades from "@/app/components/GetGrades";
 
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <div>
       <Navbar />
       <HeroSection />
+      <GetGrades />
     </div>    
   );
 }
