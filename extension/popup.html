@@ -6,13 +6,39 @@
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h2>Canvas Study AI</h2>
+    <div class="header">
+      <h2>🎓 Canvas Study AI</h2>
+      <div id="status" class="status-indicator">
+        <span id="statusText">Ready</span>
+      </div>
+    </div>
 
-    <textarea id="question" placeholder="Type your question here..."></textarea>
-    <button id="askButton">Ask AI</button>
-    <div id="loader">Fetching answer...</div>
+    <div id="setupSection" class="setup-section">
+      <div class="setup-content">
+        <h3>🔧 Setup Required</h3>
+        <p>Make sure your Python backend is running on localhost:8000</p>
+        <button id="testConnection" class="test-btn">Test Connection</button>
+      </div>
+    </div>
 
-    <div id="chat"></div>
+    <div id="mainSection" class="main-section" style="display: none;">
+      <div class="input-section">
+        <textarea id="question" placeholder="Ask me anything about your course... (e.g., 'When is the next exam?')" rows="3"></textarea>
+        <button id="askButton" class="ask-btn">
+          <span id="buttonText">Ask AI</span>
+          <div id="buttonLoader" class="button-loader" style="display: none;"></div>
+        </button>
+      </div>
+
+      <div id="chat" class="chat-container"></div>
+      
+      <div class="footer">
+        <button id="clearChat" class="clear-btn">Clear Chat</button>
+        <div class="course-info">
+          <span id="courseInfo">Course: Not detected</span>
+        </div>
+      </div>
+    </div>
 
     <script src="popup.js"></script>
   </body>

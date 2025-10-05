@@ -25,15 +25,37 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok", "message": "Backend is running"}
+
 
 class QuestionRequest(BaseModel):
     course_id: int
     question: str
 
+class TestConnectionRequest(BaseModel):
+    course_id: int
+
 @app.post("/ask")
 def ask_question(req: QuestionRequest):
-    course = canvas.get_course(req.course_id)
-    modules_info = []
+    try:
+        course = canvas.get_course(req.course_id)
+        modules_info = []
+    except Exception as e:
+        error_msg = str(e)
+        if "unauthorized" in error_msg.lower() or "forbidden" in error_msg.lower():
+            return {
+                "answer_html": "❌ <strong>Canvas API Authentication Error</strong><br><br>Your Canvas API token doesn't have the necessary permissions. Please check:<br><br>1. <strong>Token Permissions:</strong> Make sure your API token has 'Read' permissions for courses<br>2. <strong>Course Access:</strong> Ensure you're enrolled in this course<br>3. <strong>Token Validity:</strong> Your token might be expired - try generating a new one<br><br>To fix this:<br>• Go to Canvas → Account → Settings → Approved Integrations<br>• Delete your old token and create a new one<br>• Make sure to grant 'Read' permissions",
+                "modules": [],
+                "file_texts": []
+            }
+        else:
+            return {
+                "answer_html": f"❌ <strong>Canvas Connection Error</strong><br><br>Could not connect to Canvas: {error_msg}<br><br>Please check your Canvas API credentials and try again.",
+                "modules": [],
+                "file_texts": []
+            }
 
     # Clear previous vector_store for this request/course
     vector_store.clear()
@@ -132,3 +154,29 @@ def ask_question(req: QuestionRequest):
             "modules": modules_info,
             "file_texts": vector_store
         }
+
+@app.post("/test-connection")
+def test_connection(req: TestConnectionRequest):
+    """Test Canvas API connection and permissions"""
+    try:
+        course = canvas.get_course(req.course_id)
+        course_name = course.name
+        return {
+            "success": True,
+            "message": f"✅ Successfully connected to course: {course_name}",
+            "course_name": course_name
+        }
+    except Exception as e:
+        error_msg = str(e)
+        if "unauthorized" in error_msg.lower() or "forbidden" in error_msg.lower():
+            return {
+                "success": False,
+                "message": "❌ Canvas API Authentication Error. Your token doesn't have the necessary permissions.",
+                "details": "Please check your Canvas API token permissions and course access."
+            }
+        else:
+            return {
+                "success": False,
+                "message": f"❌ Canvas Connection Error: {error_msg}",
+                "details": "Please check your Canvas API credentials and try again."
+            }

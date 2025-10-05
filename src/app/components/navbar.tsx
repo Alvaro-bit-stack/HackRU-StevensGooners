@@ -10,7 +10,7 @@ export default function Navbar() {
           <a href="/grades" className="hover:text-gray-300 transition-colors duration-200">Get Grades</a>
           <a href="/study" className="hover:text-gray-300 transition-colors duration-200">Study</a>
           <a href="#" className="hover:text-gray-300 transition-colors duration-200">Creator-Contacts</a>
-          <a href="#" className="hover:text-gray-300 transition-colors duration-200">Download Extension</a>
+          <a href="/extension" className="hover:text-gray-300 transition-colors duration-200">Download Extension</a>
         </div>
       </div>
     </nav>

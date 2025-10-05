@@ -1,19 +1,32 @@
 {
   "manifest_version": 3,
   "name": "Canvas Study AI",
-  "version": "1.0",
+  "version": "2.0",
+  "description": "AI-powered assistant for Canvas courses - ask questions about your course content, assignments, and syllabus",
   "permissions": ["activeTab", "storage", "scripting"],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon.png"
+    "default_icon": "icon.png",
+    "default_title": "Canvas Study AI"
   },
   "host_permissions": [
-    "https://sit.instructure.com/*"
+    "https://*.instructure.com/*",
+    "https://*.canvaslms.com/*",
+    "http://localhost:8000/*"
   ],
   "content_scripts": [
     {
-      "matches": ["https://sit.instructure.com/courses/*"],
-      "js": ["content.js"]
+      "matches": [
+        "https://*.instructure.com/courses/*",
+        "https://*.canvaslms.com/courses/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_end"
     }
-  ]
+  ],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
 }
